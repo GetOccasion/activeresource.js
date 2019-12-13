@@ -30,6 +30,11 @@
     "jasmine-jquery": "^2.1.1",
     "jasmine-promises": "git+https://github.com/nicklandgrebe/jasmine-promises.git",
     "jquery": "^2.0.0",
-    "moxios": "git+https://github.com/nicklandgrebe/moxios.git"
+    "moxios": "git+https://github.com/nicklandgrebe/moxios.git",
+    "rollup-plugin-babel": "^4.0.3"
+  },
+  "scripts": {
+    "build": "grunt build && bili",
+    "develop": "grunt watch"
   }
 }

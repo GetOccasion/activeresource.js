@@ -14,6 +14,7 @@ class ActiveResource::Base
   ActiveResource.extend(@, ActiveResource::Attributes.prototype)
   ActiveResource.extend(@, ActiveResource::Callbacks.prototype)
   ActiveResource.extend(@, ActiveResource::Fields.prototype)
+  ActiveResource.extend(@, ActiveResource::Persistence.prototype)
   ActiveResource.extend(@, ActiveResource::Reflection.prototype)
   ActiveResource.extend(@, ActiveResource::Relation.prototype)
   # Add Links after Relation since Relation also contains a `links` prototype method extended to Base, but it should

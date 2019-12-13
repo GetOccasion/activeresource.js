@@ -1655,13 +1655,42 @@ window.Promise = es6Promise.Promise;
       });
     };
 
-    Persistence.__createOrUpdate = function() {
-      this.errors().reset();
-      if (this.persisted()) {
-        return this.klass().resourceLibrary["interface"].patch(this.links()['self'], this);
-      } else {
-        return this.klass().resourceLibrary["interface"].post(this.links()['related'], this);
+    Persistence.prototype.pushToQueue = function(fn) {
+      var _this = this;
+      if (this.__queue == null) {
+        console.log('kakkie queue is fucking empty!');
+        this.__queue = new Promise(function(resolve, reject) {
+          return resolve();
+        });
       }
+      return this.__queue = this.__queue.then(fn, fn);
+    };
+
+    Persistence.__addToQueue = function(resource) {
+      var result;
+      if (resource == null) {
+        resource = this;
+      }
+      console.log('kakkie Adding to queue!');
+      result = this.klass().pushToQueue(function() {
+        console.log('kakkie Running from queue!');
+        resource.errors().reset();
+        if (resource.persisted()) {
+          return resource.klass().resourceLibrary["interface"].patch(resource.links()['self'], resource);
+        } else {
+          return resource.klass().resourceLibrary["interface"].post(resource.links()['related'], resource);
+        }
+      });
+      this.klass().pushToQueue(function() {
+        return new Promise(function(r1, r2) {
+          return console.log('kakkie DONE!');
+        });
+      });
+      return result;
+    };
+
+    Persistence.__createOrUpdate = function() {
+      return this.__addToQueue();
     };
 
     return Persistence;
@@ -2242,6 +2271,8 @@ window.Promise = es6Promise.Promise;
     ActiveResource.extend(Base, ActiveResource.prototype.Callbacks.prototype);
 
     ActiveResource.extend(Base, ActiveResource.prototype.Fields.prototype);
+
+    ActiveResource.extend(Base, ActiveResource.prototype.Persistence.prototype);
 
     ActiveResource.extend(Base, ActiveResource.prototype.Reflection.prototype);
 
@@ -3399,12 +3430,8 @@ window.Promise = es6Promise.Promise;
       if (clone == null) {
         clone = this.clone();
       }
-      clone.errors().reset();
-      if (clone.persisted()) {
-        return this.klass().resourceLibrary["interface"].patch(this.links()['self'], clone);
-      } else {
-        return this.klass().resourceLibrary["interface"].post(this.links()['related'], clone);
-      }
+      console.log('kakkie CreOUpd');
+      return this.__addToQueue(clone);
     };
 
     return Persistence;
