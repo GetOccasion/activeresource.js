@@ -128,6 +128,18 @@ class ActiveResource::Persistence
     @errors().reset()
 
     if @persisted()
-      @klass().resourceLibrary.interface.patch @links()['self'], this
+      @klass().persistanceQueue.add.patch @links()['self'], this
     else
-      @klass().resourceLibrary.interface.post @links()['related'], this
+      @klass().persistanceQueue.add.post @links()['related'], this
+
+    # TODO: Add locking que
+    # TODO: See if we can delete requets from que if not needed anymore
+    # if @persisted()
+    #   @klass().resourceLibrary.interface.patch @links()['self'], this
+    # else
+    #   @klass().resourceLibrary.interface.post @links()['related'], this
+
+class ActiveResource::PersistanceQueue
+  # bladie
+
+
