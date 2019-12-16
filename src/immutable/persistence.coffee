@@ -21,4 +21,7 @@ class ActiveResource::Immutable::Persistence
   # Override default __createOrUpdate so it will use a clone in persisting the record
   @__createOrUpdate: (clone = this.clone()) ->
     console.log 'kakkie CreOUpd'
-    @__addToQueue(clone)
+    if clone.persisted()
+      @__addToQueue(clone)
+    else
+      @klass().resourceLibrary.interface.post clone.links()['related'], clone

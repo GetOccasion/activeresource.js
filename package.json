@@ -34,7 +34,7 @@
     "rollup-plugin-babel": "^4.0.3"
   },
   "scripts": {
-    "build": "grunt build && bili",
-    "develop": "grunt watch"
+    "build": "grunt build",
+    "develop": "grunt"
   }
 }
