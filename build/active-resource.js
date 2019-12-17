@@ -1660,7 +1660,6 @@ window.Promise = es6Promise.Promise;
     Persistence.prototype.__pushToQueue = function(id, fn) {
       var _this = this;
       if (this.__queue[id] == null) {
-        console.log('kakkie queue is fucking empty!');
         this.__queue[id] = new Promise(function(resolve, reject) {
           return resolve();
         });
@@ -1669,24 +1668,17 @@ window.Promise = es6Promise.Promise;
     };
 
     Persistence.__addToQueue = function(resource) {
-      var result;
       if (resource == null) {
         resource = this;
       }
-      console.log('kakkie Adding to queue!');
-      result = this.klass().__pushToQueue(this.id, function() {
-        console.log('kakkie Running from queue!');
+      return this.klass().__pushToQueue(this.id, function() {
         resource.errors().reset();
         return resource.klass().resourceLibrary["interface"].patch(resource.links()['self'], resource);
       });
-      this.klass().__pushToQueue(this.id, function() {
-        return console.log('kakkie DONE!');
-      });
-      return result;
     };
 
     Persistence.__createOrUpdate = function() {
-      if (resource.persisted()) {
+      if (this.persisted()) {
         return this.__addToQueue();
       } else {
         return this.klass().resourceLibrary["interface"].post(this.links()['related'], this);
@@ -3430,7 +3422,6 @@ window.Promise = es6Promise.Promise;
       if (clone == null) {
         clone = this.clone();
       }
-      console.log('kakkie CreOUpd');
       if (clone.persisted()) {
         return this.__addToQueue(clone);
       } else {

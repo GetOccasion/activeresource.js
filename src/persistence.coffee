@@ -114,21 +114,14 @@ class ActiveResource::Persistence
   __queue: {}
 
   __pushToQueue: (id, fn) ->
-    unless @__queue[id]?
-      console.log 'kakkie queue is fucking empty!'
-      @__queue[id] = new Promise (resolve, reject) => resolve()
+    @__queue[id] = new Promise((resolve, reject) => resolve()) unless @__queue[id]?
     @__queue[id] = @__queue[id].then(fn, fn)
 
   # Return promise
   @__addToQueue: (resource = @)->
-    console.log 'kakkie Adding to queue!'
-    result = @klass().__pushToQueue @id, ->
-      console.log 'kakkie Running from queue!'
+    @klass().__pushToQueue @id, ->
       resource.errors().reset()
       resource.klass().resourceLibrary.interface.patch resource.links()['self'], resource
-    @klass().__pushToQueue @id, -> console.log('kakkie DONE!')
-
-    result
 
   # Called by `save` and `update` to determine if we should create a new resource with attributes
   # on the server, or simply update a persisted resource with the attributes
@@ -142,7 +135,7 @@ class ActiveResource::Persistence
   #
   # @return [Promise] a promise to return the persisted ActiveResource **or** ActiveResource with errors
   @__createOrUpdate: ->
-    if resource.persisted()
+    if @persisted()
       @__addToQueue()
     else
       @klass().resourceLibrary.interface.post @links()['related'], @
