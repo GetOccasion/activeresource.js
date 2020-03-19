@@ -11,6 +11,8 @@
   s = s && s.hasOwnProperty('default') ? s['default'] : s;
 
   function _typeof(obj) {
+    "@babel/helpers - typeof";
+
     if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
       _typeof = function (obj) {
         return typeof obj;
@@ -144,7 +146,7 @@
   }
 
   var ActiveResource;
-  if (!((typeof exports === "undefined" ? "undefined" : _typeof(exports)) === 'object' && typeof module !== 'undefined')) {
+  if (!((typeof window === "undefined" ? "undefined" : _typeof(window)) === void 0 || (typeof exports === "undefined" ? "undefined" : _typeof(exports)) === 'object' && typeof module !== 'undefined')) {
     window.Promise = es6Promise.Promise;
   }
 
@@ -186,9 +188,7 @@
     ActiveResource.prototype.Typing = function () {
       var getPrototypeOf$$1;
 
-      var Typing =
-      /*#__PURE__*/
-      function () {
+      var Typing = /*#__PURE__*/function () {
         function Typing() {
           _classCallCheck(this, Typing);
         }
@@ -251,11 +251,9 @@
 
       var ResourceLibrary, _interface, library;
 
-      _interface = options.interface || ActiveResource.Interfaces.JsonApi;
+      _interface = options["interface"] || ActiveResource.Interfaces.JsonApi;
 
-      library = ResourceLibrary =
-      /*#__PURE__*/
-      function () {
+      library = ResourceLibrary = /*#__PURE__*/function () {
         function ResourceLibrary() {
           var _this2 = this;
 
@@ -269,13 +267,13 @@
               },
               set: function set(value) {
                 _this2._headers = value;
-                return _this2.interface = new _interface(_this2);
+                return _this2["interface"] = new _interface(_this2);
               }
             }
           });
           this.baseUrl = baseUrl.charAt(baseUrl.length - 1) === '/' ? baseUrl : "".concat(baseUrl, "/");
           this._headers = options.headers;
-          this.interface = new _interface(this);
+          this["interface"] = new _interface(this);
           this.constantizeScope = options['constantizeScope'];
           this.immutable = options.immutable;
           this.includePolymorphicRepeats = options.includePolymorphicRepeats;
@@ -284,9 +282,7 @@
           resourceLibrary = this;
 
           this.Base = Base = function () {
-            var Base =
-            /*#__PURE__*/
-            function (_base) {
+            var Base = /*#__PURE__*/function (_base) {
               _inherits(Base, _base);
 
               function Base() {
@@ -368,9 +364,7 @@
       
 
       Interfaces.prototype.Base = function () {
-        var Base =
-        /*#__PURE__*/
-        function () {
+        var Base = /*#__PURE__*/function () {
           function Base(resourceLibrary) {
             _classCallCheck(this, Base);
 
@@ -398,7 +392,11 @@
                 return Promise.reject(error);
               }
             });
-          }
+          } // Makes an HTTP request to a url with data
+          // @param [String] url the url to query
+          // @param [String] method the HTTP verb to use for the request
+          // @param [Object] data the data to send to the server
+
 
           _createClass(Base, [{
             key: "request",
@@ -508,9 +506,7 @@
     //     ]
     //   }
     ActiveResource.Interfaces.JsonApi = ActiveResource.prototype.Interfaces.prototype.JsonApi = function () {
-      var JsonApi =
-      /*#__PURE__*/
-      function (_ActiveResource$proto) {
+      var JsonApi = /*#__PURE__*/function (_ActiveResource$proto) {
         _inherits(JsonApi, _ActiveResource$proto);
 
         function JsonApi() {
@@ -1452,9 +1448,7 @@
   (function () {
     // Adds methods for managing associations, which are built at the instance level
     // based on reflections stored at the class level of ActiveResources
-    ActiveResource.prototype.Associations =
-    /*#__PURE__*/
-    function () {
+    ActiveResource.prototype.Associations = /*#__PURE__*/function () {
       function Associations() {
         _classCallCheck(this, Associations);
       }
@@ -1524,9 +1518,7 @@
   }).call(undefined);
   (function () {
     // ActiveResource methods for managing attributes of resources
-    ActiveResource.prototype.Attributes =
-    /*#__PURE__*/
-    function () {
+    ActiveResource.prototype.Attributes = /*#__PURE__*/function () {
       function Attributes() {
         _classCallCheck(this, Attributes);
       }
@@ -1640,7 +1632,7 @@
 
           resource = this;
           url = this.links()['self'] || ActiveResource.prototype.Links.__constructLink(this.links()['related'], this.id.toString());
-          return this.interface().get(url, this.queryParams()).then(function (reloaded) {
+          return this["interface"]().get(url, this.queryParams()).then(function (reloaded) {
             resource.__assignFields(reloaded.attributes());
 
             resource.klass().reflectOnAllAssociations().each(function (reflection) {
@@ -1723,9 +1715,7 @@
   }).call(undefined);
   (function () {
     // ActiveResource callbacks to execute around things like requests and initialization
-    ActiveResource.prototype.Callbacks =
-    /*#__PURE__*/
-    function () {
+    ActiveResource.prototype.Callbacks = /*#__PURE__*/function () {
       function Callbacks() {
         _classCallCheck(this, Callbacks);
       }
@@ -1771,9 +1761,7 @@
   }).call(undefined);
   (function () {
     // ActiveResource cloning
-    ActiveResource.prototype.Cloning =
-    /*#__PURE__*/
-    function () {
+    ActiveResource.prototype.Cloning = /*#__PURE__*/function () {
       function Cloning() {
         _classCallCheck(this, Cloning);
       }
@@ -2025,9 +2013,7 @@
   (function () {
     // Wraps a Javascript array with some useful functions native to Ruby Arrays
     ActiveResource.Collection = ActiveResource.prototype.Collection = function () {
-      var Collection =
-      /*#__PURE__*/
-      function () {
+      var Collection = /*#__PURE__*/function () {
         _createClass(Collection, null, [{
           key: "build",
           // Builds a new ActiveResource::Collection
@@ -2313,9 +2299,7 @@
   }).call(undefined);
   (function () {
     // Wraps an ActiveResource::Collection with some useful functions specific to GET responses
-    ActiveResource.CollectionResponse = ActiveResource.prototype.CollectionResponse =
-    /*#__PURE__*/
-    function (_ActiveResource$proto2) {
+    ActiveResource.CollectionResponse = ActiveResource.prototype.CollectionResponse = /*#__PURE__*/function (_ActiveResource$proto2) {
       _inherits(CollectionResponse, _ActiveResource$proto2);
 
       function CollectionResponse() {
@@ -2358,7 +2342,7 @@
         key: "prevPage",
         value: function prevPage() {
           if (this.hasPrevPage()) {
-            return this.prevPagePromise || (this.prevPagePromise = this.first().klass().resourceLibrary.interface.get(this.links()['prev']));
+            return this.prevPagePromise || (this.prevPagePromise = this.first().klass().resourceLibrary["interface"].get(this.links()['prev']));
           }
         } // Loads data at links()['next'] if there is a link
         // @return [Promise] a promise to return the next page of data, or errors
@@ -2367,7 +2351,7 @@
         key: "nextPage",
         value: function nextPage() {
           if (this.hasNextPage()) {
-            return this.nextPagePromise || (this.nextPagePromise = this.first().klass().resourceLibrary.interface.get(this.links()['next']));
+            return this.nextPagePromise || (this.nextPagePromise = this.first().klass().resourceLibrary["interface"].get(this.links()['next']));
           }
         } // Converts this a plain ActiveResource::Collection
         // @return [Collection] the converted collection for this CollectionResponse
@@ -2404,9 +2388,7 @@
     //   product.save ->
     //     unless product.valid?()
     //       product.errors()
-    ActiveResource.Errors = ActiveResource.prototype.Errors =
-    /*#__PURE__*/
-    function () {
+    ActiveResource.Errors = ActiveResource.prototype.Errors = /*#__PURE__*/function () {
       _createClass(Errors, null, [{
         key: "errors",
         // Caches an instance of this class on ActiveResource::Base#errors in order to manage
@@ -2674,9 +2656,7 @@
   }).call(undefined);
   (function () {
     // ActiveResource methods for managing changes in tracked fields
-    ActiveResource.prototype.Fields =
-    /*#__PURE__*/
-    function () {
+    ActiveResource.prototype.Fields = /*#__PURE__*/function () {
       function Fields() {
         _classCallCheck(this, Fields);
       }
@@ -2794,9 +2774,7 @@
   }).call(undefined);
   (function () {
     // ActiveResource methods for managing links of resources to their servers
-    ActiveResource.Links = ActiveResource.prototype.Links =
-    /*#__PURE__*/
-    function () {
+    ActiveResource.Links = ActiveResource.prototype.Links = /*#__PURE__*/function () {
       function Links() {
         _classCallCheck(this, Links);
       }
@@ -2851,9 +2829,7 @@
   }).call(undefined);
   (function () {
     // ActiveResource methods for persisting local resources with the server
-    ActiveResource.prototype.Persistence =
-    /*#__PURE__*/
-    function () {
+    ActiveResource.prototype.Persistence = /*#__PURE__*/function () {
       function Persistence() {
         _classCallCheck(this, Persistence);
       }
@@ -2961,7 +2937,7 @@
         key: "destroy",
         value: function destroy() {
           var resource;
-          return this.klass().resourceLibrary.interface.delete(this.links()['self'], resource = this).then(function () {
+          return this.klass().resourceLibrary["interface"]["delete"](this.links()['self'], resource = this).then(function () {
             resource.__links = {};
             return resource;
           });
@@ -2981,23 +2957,32 @@
           this.errors().reset();
 
           if (this.persisted()) {
-            return this.klass().resourceLibrary.interface.patch(this.links()['self'], this);
+            return this.klass().persistanceQueue.add.patch(this.links()['self'], this);
           } else {
-            return this.klass().resourceLibrary.interface.post(this.links()['related'], this);
+            return this.klass().persistanceQueue.add.post(this.links()['related'], this);
           }
         }
       }]);
 
       return Persistence;
-    }();
+    }(); // TODO: Add locking que
+    // TODO: See if we can delete requets from que if not needed anymore
+    // if @persisted()
+    //   @klass().resourceLibrary.interface.patch @links()['self'], this
+    // else
+    //   @klass().resourceLibrary.interface.post @links()['related'], this
+
+
+    ActiveResource.prototype.PersistanceQueue = function PersistanceQueue() {
+      _classCallCheck(this, PersistanceQueue);
+    }; // bladie
+
   }).call(undefined);
   (function () {
     ActiveResource.prototype.QueryParams = function () {
       var COLLECTION_RELATED, RESOURCE_RELATED;
 
-      var QueryParams =
-      /*#__PURE__*/
-      function () {
+      var QueryParams = /*#__PURE__*/function () {
         function QueryParams() {
           _classCallCheck(this, QueryParams);
         }
@@ -3160,9 +3145,7 @@
   (function () {
     // Adds methods for managing reflections, which reflect on associations of ActiveResources
     ActiveResource.Reflection = ActiveResource.prototype.Reflection = function () {
-      var Reflection =
-      /*#__PURE__*/
-      function () {
+      var Reflection = /*#__PURE__*/function () {
         function Reflection() {
           _classCallCheck(this, Reflection);
         }
@@ -3261,9 +3244,7 @@
         // and when an ActiveResource is instantiated the reflection is built into an appropriate
         // Association
 
-        var AbstractReflection =
-        /*#__PURE__*/
-        function () {
+        var AbstractReflection = /*#__PURE__*/function () {
           // @param [String] name the name of the association to reflect on
           // @param [Object] options the options to build into the reflection
           // @param [Class] activeResource the ActiveResource class that owns this reflection
@@ -3521,9 +3502,7 @@
       }.call(this);
 
       Reflection.prototype.HasManyReflection = function () {
-        var HasManyReflection =
-        /*#__PURE__*/
-        function (_Reflection$prototype) {
+        var HasManyReflection = /*#__PURE__*/function (_Reflection$prototype) {
           _inherits(HasManyReflection, _Reflection$prototype);
 
           function HasManyReflection() {
@@ -3554,9 +3533,7 @@
       }.call(this);
 
       Reflection.prototype.HasOneReflection = function () {
-        var HasOneReflection =
-        /*#__PURE__*/
-        function (_Reflection$prototype2) {
+        var HasOneReflection = /*#__PURE__*/function (_Reflection$prototype2) {
           _inherits(HasOneReflection, _Reflection$prototype2);
 
           function HasOneReflection() {
@@ -3587,9 +3564,7 @@
       }.call(this);
 
       Reflection.prototype.BelongsToReflection = function () {
-        var BelongsToReflection =
-        /*#__PURE__*/
-        function (_Reflection$prototype3) {
+        var BelongsToReflection = /*#__PURE__*/function (_Reflection$prototype3) {
           _inherits(BelongsToReflection, _Reflection$prototype3);
 
           function BelongsToReflection() {
@@ -3649,9 +3624,7 @@
     // @example
     //   Order.includes('transactions').findBy(token: 'as8h2nW')
     ActiveResource.Relation = ActiveResource.prototype.Relation = function () {
-      var Relation =
-      /*#__PURE__*/
-      function () {
+      var Relation = /*#__PURE__*/function () {
         // @param [ActiveResource::Base] base the resource class this relation is for
         // @param [Object] __queryParams the __queryParams already built by previous links in
         //   the Relation chain
@@ -3690,7 +3663,7 @@
         }, {
           key: "interface",
           value: function _interface() {
-            return this.base.interface();
+            return this.base["interface"]();
           } // Adds filters to the query
           // @example
           //  .where(price: 5.0) = { filter: { price: 5.0 } }
@@ -3922,7 +3895,7 @@
             }
 
             url = ActiveResource.prototype.Links.__constructLink(this.links()['related'], primaryKey.toString());
-            return this.interface().get(url, this.queryParams());
+            return this["interface"]().get(url, this.queryParams());
           } // Retrieves the first ActiveResource in the relation corresponding to conditions
           // @param [Object] conditions the conditions to filter by
           // @return [Promise] a promise to return the ActiveResource **or** errors
@@ -3937,7 +3910,7 @@
         }, {
           key: "all",
           value: function all() {
-            return this.interface().get(this.links()['related'], this.queryParams());
+            return this["interface"]().get(this.links()['related'], this.queryParams());
           } // Retrieves all resources in the relation and calls a function with each one of them
           // @param [Function] iteratee the function to call with each item of the relation
           // @return [Promise] a promise that returns the collection **or** errors
@@ -4003,9 +3976,7 @@
   (function () {
     // Core methods and members for Base class
     ActiveResource.prototype.Core = function () {
-      var Core =
-      /*#__PURE__*/
-      function () {
+      var Core = /*#__PURE__*/function () {
         function Core() {
           _classCallCheck(this, Core);
         }
@@ -4014,7 +3985,7 @@
           key: "interface",
           // The interface to use when querying the server for this resource
           value: function _interface() {
-            return this.klass().interface();
+            return this.klass()["interface"]();
           } // Creates a new ActiveResource::Relation with the extended queryParams passed in
           // @param [Object] queryParams the extended query params for the relation
           // @return [ActiveResource::Relation] the new Relation for the extended query
@@ -4022,7 +3993,7 @@
         }, {
           key: "toString",
           value: function toString() {
-            return JSON.stringify(this.interface().buildResourceDocument({
+            return JSON.stringify(this["interface"]().buildResourceDocument({
               resourceData: this
             }));
           }
@@ -4030,7 +4001,7 @@
           key: "interface",
           // The interface to use when querying the server for this class
           value: function _interface() {
-            return this.resourceLibrary.interface;
+            return this.resourceLibrary["interface"];
           }
         }, {
           key: "__newRelation",
@@ -4099,9 +4070,7 @@
   (function () {
     // The instantiated class that manages an association for an ActiveResource
     ActiveResource.prototype.Associations.prototype.Association = function () {
-      var Association =
-      /*#__PURE__*/
-      function () {
+      var Association = /*#__PURE__*/function () {
         // @param [ActiveResource::Base] the resource that owners this association
         // @param [ActiveResource::Reflection] reflection the reflection of the association
         function Association(owner, reflection) {
@@ -4144,7 +4113,7 @@
         }, {
           key: "interface",
           value: function _interface() {
-            return this.owner.klass().interface();
+            return this.owner.klass()["interface"]();
           } // Resets the loaded flag to `false` and the target to `nil`
 
         }, {
@@ -4200,7 +4169,7 @@
                 _this21.loaded(true);
 
                 return loadedTarget;
-              }).catch(function () {
+              })["catch"](function () {
                 return _this21.reset();
               });
             } else {
@@ -4389,9 +4358,7 @@
   (function () {
     // CollectionAssociation is an abstract class that provides common stuff to ease the implementation
     // of association proxies that represent collections.
-    ActiveResource.prototype.Associations.prototype.CollectionAssociation =
-    /*#__PURE__*/
-    function (_ActiveResource$proto3) {
+    ActiveResource.prototype.Associations.prototype.CollectionAssociation = /*#__PURE__*/function (_ActiveResource$proto3) {
       _inherits(CollectionAssociation, _ActiveResource$proto3);
 
       // @note Adds @queryName so it can be used in CollectionProxy when making Relations
@@ -4607,7 +4574,7 @@
           var _this;
 
           _this = this;
-          return this.interface().get(this.links()['related'], this.owner.queryParamsForReflection(this.reflection)).then(function (resources) {
+          return this["interface"]().get(this.links()['related'], this.owner.queryParamsForReflection(this.reflection)).then(function (resources) {
             resources.each(function (r) {
               return _this.setInverseInstance(r);
             });
@@ -4659,7 +4626,7 @@
       }, {
         key: "__persistAssignment",
         value: function __persistAssignment(resources) {
-          return this.interface().patch(this.links()['self'], resources, {
+          return this["interface"]().patch(this.links()['self'], resources, {
             onlyResourceIdentifiers: true
           });
         } // Persists a concat to the association by posting to the owner's relationship endpoint
@@ -4668,7 +4635,7 @@
       }, {
         key: "__persistConcat",
         value: function __persistConcat(resources) {
-          return this.interface().post(this.links()['self'], resources, {
+          return this["interface"]().post(this.links()['self'], resources, {
             onlyResourceIdentifiers: true
           });
         } // Persists deleting resources from the association by deleting it on the owner's relationship endpoint
@@ -4677,7 +4644,7 @@
       }, {
         key: "__persistDelete",
         value: function __persistDelete(resources) {
-          return this.interface().delete(this.links()['self'], resources, {
+          return this["interface"]()["delete"](this.links()['self'], resources, {
             onlyResourceIdentifiers: true
           });
         } // @see #create
@@ -4711,9 +4678,7 @@
     // are made with association links and a lot of the methods make use of Association
     // to accomplish their goal
     ActiveResource.prototype.Associations.prototype.CollectionProxy = function () {
-      var CollectionProxy =
-      /*#__PURE__*/
-      function (_ActiveResource$proto4) {
+      var CollectionProxy = /*#__PURE__*/function (_ActiveResource$proto4) {
         _inherits(CollectionProxy, _ActiveResource$proto4);
 
         function CollectionProxy() {
@@ -4893,7 +4858,7 @@
         }, {
           key: "delete",
           value: function _delete(resources) {
-            return this.base.delete(resources);
+            return this.base["delete"](resources);
           } // Deletes all the resources in the association from the association
           // @return [Promise] a promise to return a success indicator (204 No Content) **or**
           //   an error indicator (403 Forbidden)
@@ -4901,7 +4866,7 @@
         }, {
           key: "deleteAll",
           value: function deleteAll() {
-            return this.base.delete(this.target());
+            return this.base["delete"](this.target());
           }
         }]);
 
@@ -4915,9 +4880,7 @@
     }.call(this);
   }).call(undefined);
   (function () {
-    ActiveResource.prototype.Associations.prototype.HasManyAssociation =
-    /*#__PURE__*/
-    function (_ActiveResource$proto5) {
+    ActiveResource.prototype.Associations.prototype.HasManyAssociation = /*#__PURE__*/function (_ActiveResource$proto5) {
       _inherits(HasManyAssociation, _ActiveResource$proto5);
 
       function HasManyAssociation() {
@@ -4959,9 +4922,7 @@
     }(ActiveResource.prototype.Associations.prototype.CollectionAssociation);
   }).call(undefined);
   (function () {
-    ActiveResource.prototype.Associations.prototype.SingularAssociation =
-    /*#__PURE__*/
-    function (_ActiveResource$proto6) {
+    ActiveResource.prototype.Associations.prototype.SingularAssociation = /*#__PURE__*/function (_ActiveResource$proto6) {
       _inherits(SingularAssociation, _ActiveResource$proto6);
 
       function SingularAssociation() {
@@ -5051,7 +5012,7 @@
       }, {
         key: "__persistAssignment",
         value: function __persistAssignment(resource) {
-          return this.interface().patch(this.links()['self'], resource, {
+          return this["interface"]().patch(this.links()['self'], resource, {
             onlyResourceIdentifiers: true
           });
         } // Gets the resource that is the target
@@ -5060,7 +5021,7 @@
       }, {
         key: "__getResource",
         value: function __getResource() {
-          return this.interface().get(this.links()['related'], this.owner.queryParamsForReflection(this.reflection));
+          return this["interface"]().get(this.links()['related'], this.owner.queryParamsForReflection(this.reflection));
         } // Finds target using either the owner's relationship endpoint
         // @return [Promise] a promise to return the target **or** error 404
 
@@ -5102,9 +5063,7 @@
     }(ActiveResource.prototype.Associations.prototype.Association);
   }).call(undefined);
   (function () {
-    ActiveResource.prototype.Associations.prototype.HasOneAssociation =
-    /*#__PURE__*/
-    function (_ActiveResource$proto7) {
+    ActiveResource.prototype.Associations.prototype.HasOneAssociation = /*#__PURE__*/function (_ActiveResource$proto7) {
       _inherits(HasOneAssociation, _ActiveResource$proto7);
 
       function HasOneAssociation() {
@@ -5147,9 +5106,7 @@
     }(ActiveResource.prototype.Associations.prototype.SingularAssociation);
   }).call(undefined);
   (function () {
-    ActiveResource.prototype.Associations.prototype.BelongsToAssociation =
-    /*#__PURE__*/
-    function (_ActiveResource$proto8) {
+    ActiveResource.prototype.Associations.prototype.BelongsToAssociation = /*#__PURE__*/function (_ActiveResource$proto8) {
       _inherits(BelongsToAssociation, _ActiveResource$proto8);
 
       function BelongsToAssociation() {
@@ -5191,7 +5148,7 @@
             return _get(_getPrototypeOf(BelongsToAssociation.prototype), "__getResource", this).call(this);
           } else {
             // @example Uses @links()['related'] == '/products/:product_id'
-            return this.interface().get(this.links()['related'] + this.owner[this.reflection.foreignKey()], this.owner.queryParamsForReflection(this.reflection));
+            return this["interface"]().get(this.links()['related'] + this.owner[this.reflection.foreignKey()], this.owner.queryParamsForReflection(this.reflection));
           }
         } // Replaces the foreign key of the owner with the primary key of the resource (the new target)
         // @param [ActiveResource::Base] resource the resource with a primaryKey to replace the foreignKey of the owner
@@ -5218,9 +5175,7 @@
     }(ActiveResource.prototype.Associations.prototype.SingularAssociation);
   }).call(undefined);
   (function () {
-    ActiveResource.prototype.Associations.prototype.BelongsToPolymorphicAssociation =
-    /*#__PURE__*/
-    function (_ActiveResource$proto9) {
+    ActiveResource.prototype.Associations.prototype.BelongsToPolymorphicAssociation = /*#__PURE__*/function (_ActiveResource$proto9) {
       _inherits(BelongsToPolymorphicAssociation, _ActiveResource$proto9);
 
       function BelongsToPolymorphicAssociation() {
@@ -5296,9 +5251,7 @@
 
       Builder.__excludeFromExtend = true;
 
-      Builder.prototype.Association =
-      /*#__PURE__*/
-      function () {
+      Builder.prototype.Association = /*#__PURE__*/function () {
         function Association() {
           _classCallCheck(this, Association);
         }
@@ -5366,9 +5319,7 @@
     }.call(this);
   }).call(undefined);
   (function () {
-    ActiveResource.prototype.Associations.prototype.Builder.prototype.CollectionAssociation =
-    /*#__PURE__*/
-    function (_ActiveResource$proto10) {
+    ActiveResource.prototype.Associations.prototype.Builder.prototype.CollectionAssociation = /*#__PURE__*/function (_ActiveResource$proto10) {
       _inherits(CollectionAssociation, _ActiveResource$proto10);
 
       function CollectionAssociation() {
@@ -5382,9 +5333,7 @@
   }).call(undefined);
   (function () {
     ActiveResource.prototype.Associations.prototype.Builder.prototype.HasMany = function () {
-      var HasMany =
-      /*#__PURE__*/
-      function (_ActiveResource$proto11) {
+      var HasMany = /*#__PURE__*/function (_ActiveResource$proto11) {
         _inherits(HasMany, _ActiveResource$proto11);
 
         function HasMany() {
@@ -5402,9 +5351,7 @@
     }.call(this);
   }).call(undefined);
   (function () {
-    ActiveResource.prototype.Associations.prototype.Builder.prototype.SingularAssociation =
-    /*#__PURE__*/
-    function (_ActiveResource$proto12) {
+    ActiveResource.prototype.Associations.prototype.Builder.prototype.SingularAssociation = /*#__PURE__*/function (_ActiveResource$proto12) {
       _inherits(SingularAssociation, _ActiveResource$proto12);
 
       function SingularAssociation() {
@@ -5462,9 +5409,7 @@
   }).call(undefined);
   (function () {
     ActiveResource.prototype.Associations.prototype.Builder.prototype.BelongsTo = function () {
-      var BelongsTo =
-      /*#__PURE__*/
-      function (_ActiveResource$proto13) {
+      var BelongsTo = /*#__PURE__*/function (_ActiveResource$proto13) {
         _inherits(BelongsTo, _ActiveResource$proto13);
 
         function BelongsTo() {
@@ -5483,9 +5428,7 @@
   }).call(undefined);
   (function () {
     ActiveResource.prototype.Associations.prototype.Builder.prototype.HasOne = function () {
-      var HasOne =
-      /*#__PURE__*/
-      function (_ActiveResource$proto14) {
+      var HasOne = /*#__PURE__*/function (_ActiveResource$proto14) {
         _inherits(HasOne, _ActiveResource$proto14);
 
         function HasOne() {
@@ -5509,9 +5452,7 @@
   }).call(undefined);
   (function () {
     // ActiveResource methods for managing attributes of immutable resources
-    ActiveResource.prototype.Immutable.prototype.Attributes =
-    /*#__PURE__*/
-    function () {
+    ActiveResource.prototype.Immutable.prototype.Attributes = /*#__PURE__*/function () {
       function Attributes() {
         _classCallCheck(this, Attributes);
       }
@@ -5539,7 +5480,7 @@
 
           resource = this.clone();
           url = this.links()['self'] || ActiveResource.prototype.Links.__constructLink(this.links()['related'], this.id.toString());
-          return this.interface().get(url, this.queryParams()).then(function (reloaded) {
+          return this["interface"]().get(url, this.queryParams()).then(function (reloaded) {
             var fields;
             fields = reloaded.attributes();
             resource.klass().reflectOnAllAssociations().each(function (reflection) {
@@ -5571,9 +5512,7 @@
   }).call(undefined);
   (function () {
     // ActiveResource methods for managing attributes of immutable resources
-    ActiveResource.prototype.Immutable.prototype.Errors =
-    /*#__PURE__*/
-    function (_ActiveResource$proto15) {
+    ActiveResource.prototype.Immutable.prototype.Errors = /*#__PURE__*/function (_ActiveResource$proto15) {
       _inherits(Errors, _ActiveResource$proto15);
 
       function Errors() {
@@ -5668,7 +5607,7 @@
                 });
                 baseErrors.each(function (e) {
                   e.field = k;
-                  return errorsForTarget.errors.delete(e);
+                  return errorsForTarget.errors["delete"](e);
                 });
                 baseErrors.each(function (e) {
                   return _this34.push(e);
@@ -5713,9 +5652,7 @@
   }).call(undefined);
   (function () {
     // ActiveResource methods for managing persistence of immutable resources to the server
-    ActiveResource.prototype.Immutable.prototype.Persistence =
-    /*#__PURE__*/
-    function () {
+    ActiveResource.prototype.Immutable.prototype.Persistence = /*#__PURE__*/function () {
       function Persistence() {
         _classCallCheck(this, Persistence);
       }
@@ -5748,9 +5685,9 @@
           clone.errors().reset();
 
           if (clone.persisted()) {
-            return this.klass().resourceLibrary.interface.patch(this.links()['self'], clone);
+            return this.klass().resourceLibrary["interface"].patch(this.links()['self'], clone);
           } else {
-            return this.klass().resourceLibrary.interface.post(this.links()['related'], clone);
+            return this.klass().resourceLibrary["interface"].post(this.links()['related'], clone);
           }
         }
       }]);
@@ -5760,9 +5697,7 @@
   }).call(undefined);
   (function () {
     ActiveResource.prototype.Immutable.prototype.Base = function () {
-      var Base =
-      /*#__PURE__*/
-      function (_ActiveResource$proto16) {
+      var Base = /*#__PURE__*/function (_ActiveResource$proto16) {
         _inherits(Base, _ActiveResource$proto16);
 
         function Base() {
